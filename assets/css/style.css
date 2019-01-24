@@ -1,0 +1,17 @@
+body {
+    max-width: 70%;
+    margin: auto;
+    margin-top: 3em;
+};
+
+.time {
+    float: left;
+}
+
+.question {
+    font-weight: bold;
+};
+
+.answer {
+    font-weight: lighter;
+}
