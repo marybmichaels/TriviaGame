@@ -189,7 +189,7 @@ function showResults() {
     }
     if ($("input:radio[name='3']").is(":checked")) {
         var q3val = $("input[name='3']:checked").val();
-        if (q3val === quizQues[1].correct) {
+        if (q3val === quizQues[2].correct) {
             numCorrect++;
             updateResults();
         } else {
