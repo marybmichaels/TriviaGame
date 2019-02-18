@@ -21,13 +21,13 @@ $('#start-btn').on("click", function() {
     // reset();
     makeQuiz();
     showTime();
-    $('<button type="button" class="btn btn-primary btn-large" id="submit">').text("Submit")
+    $('<button type="button" class="btn btn-primary btn-large mx-auto" id="submit">').text("Submit")
         .appendTo('#submit-place');
     $('#start-btn').hide();
     quizInterval = setInterval(function() { 
         timeConv = timeConv-1000; 
         showTime();
-        timeUp()
+        timeUp();
         }, 1000);
     });
     
@@ -39,9 +39,9 @@ var quizQues = [
         b: "orange",
         c: "green",
         d: "none of the above"
+        },
+    correct: "a",
     },
-    correct: "a"
-},
 {
     question: "What color are tomatoes?",
     answers: {
@@ -50,7 +50,7 @@ var quizQues = [
         c: "green",
         d: "red"
     },
-    correct: "a"
+    correct: "a",
 },
 {
     question: "What is the capital of Texas?",
@@ -60,27 +60,53 @@ var quizQues = [
         c: "Austin",
         d: "Texas doesn't exist"
     },
-    correct: "c"
+    correct: "c",
 }
 ]
 
 function makeQuiz() {
     // var quesAns;
     for (i=0; i<quizQues.length; i++) {
-        // console.log(quizQues[i].question)
+        var ans = quizQues[i].answers;
+        var correct = quizQues[i].correct;
+        var quesNum = 1+i;
 
-        // quesAns = [];
-        // for(letter in questions[i].answers){
-        //     $('<input type="radio" name="rbtnCount">').answers.push
-        // }
+        console.log(ans)
+        $('<div>').attr({
+            id: i,
+            class: "card mb-3",
+            style: "width: 80%;"
+        }).appendTo('#quiz')
 
-        $('<p>').text(quizQues[i].question).addClass('question').appendTo('#quiz');
-        $('<label>').text(quizQues[i].answers).addClass('answer').appendTo('#quiz');
+        var questionDiv = $('<div>').text(quesNum + ".  " + quizQues[i].question).addClass('question card-header');
+        var cardList = $('<ul>').addClass("list-group list-group-flush");
+        // var correctAns = $(quizQues[i].correct);
+        
+        console.log("correct answer " + quesNum + ": ", correct)
+        for (key in ans) {
+            var cardItem = $('<li>').addClass("list-group-item");
+            var radioBtn = $('<input>').attr({
+                type: "radio",
+                class:"form-check-input ml-1",
+                id: quesNum + key,
+                value: key,
+                name: quesNum,
+                correctAns: correct,
+            });
+            var btnLabel = $('<label>').attr({
+                class: "form-check-label ml-4",
+                for: key,
+            }) 
+
+            $(btnLabel).text(ans[key]);
+            $(cardItem).append(radioBtn, btnLabel);
+            $(cardList).append(cardItem);
+        }
+        $('#'+ i).append(questionDiv, cardList);
 
         console.log(quizQues[i].answers);
     }
 }
-// makeQuiz();
 
 function showAnswers() {
 
@@ -88,7 +114,7 @@ function showAnswers() {
 
 function showResults() {
     $('#quiz').hide();
-    $('#remaining').hide();
+    $('#remaining').text("Below are your results!");
     $('#submit-place').hide();
     $('<button type="button" class="btn btn-primary btn-large" id="refresh">').text("Refresh Quiz")
         .appendTo('#results');
@@ -99,6 +125,7 @@ function showResults() {
 function timeUp() {
     if (timeConv === 0) {
         clearInterval(quizInterval);
+        showResults();
     }
 }
 

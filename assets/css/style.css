@@ -1,11 +1,11 @@
 body {
-    max-width: 70%;
+    /* max-width: 70%; */
     margin: auto;
-    margin-top: 3em;
+    /* margin-top: 3em; */
 };
 
 .time {
-    float: left;
+    float: right;
 }
 
 .question {
@@ -14,4 +14,17 @@ body {
 
 .answer {
     font-weight: lighter;
+}
+
+.card {
+    margin: auto;
+}
+
+#submit, #start-btn, #refresh {
+    display: block;
+    margin: auto;
+}
+
+.jumbotron {
+    background: #343a40;
 }
