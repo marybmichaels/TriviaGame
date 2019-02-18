@@ -102,7 +102,9 @@ function makeQuiz() {
             $(cardItem).append(radioBtn, btnLabel);
             $(cardList).append(cardItem);
         }
-        $('#'+ i).append(questionDiv, cardList);
+        var cardForm = $('<form>').attr("id", "cardform" + quesNum);
+        $(cardForm).append(cardList);
+        $('#'+ i).append(questionDiv, cardForm);
 
         console.log(quizQues[i].answers);
     }
@@ -116,10 +118,54 @@ function showResults() {
     $('#quiz').hide();
     $('#remaining').text("Below are your results!");
     $('#submit-place').hide();
-    $('<button type="button" class="btn btn-primary btn-large" id="refresh">').text("Refresh Quiz")
-        .appendTo('#results');
+    var refreshBtn = $('<button type="button" class="btn btn-primary btn-large" id="refresh">').text("Refresh Quiz");
+
+    var numCorrect = 0;
+    var numIncorrect = 0;
+    var numUnanswered = 0;
+    $('<div>').attr({
+        class: "card-group",
+        id: "result-cards"
+    }).appendTo('#results');
+    // add text for correct, incorrect, and unanswered to #results div
+    for (i=0; i<3; i++) {
+        var resultCard = $('<div>').attr({
+            class: "card mx-0 mb-3",
+            style: "max-width: 18rem",
+            id: "card-" + i,
+            });
+        var cardHeader = $('<div>').attr({
+            class: "card-header",
+            id: "header-"+ i,
+        });
+        var cardBody = $('<div>').attr({
+            class: "card-body",
+            id: "body-"+ i,
+        });
+
+        $(resultCard).append(cardHeader, cardBody);
+        $('#result-cards').append(resultCard);
+    };
+
+    $('#header-0').text("CORRECT");
+    $('#header-1').text("INCORRECT");
+    $('#header-2').text("UNANSWERED");
+    
+    $('<h2>').text(numCorrect).appendTo('#body-0');
+    $('<h2>').text(numIncorrect).appendTo('#body-1');
+    $('<h2>').text(numUnanswered).appendTo('#body-2');
+
+    
+    // calculate which questions were answered correctly
+
+    // calculate which questions were unanswered
+
     clearInterval(quizInterval);
     timeConv = 120000;
+
+    // append everything to #results
+    var br = $('<br>');
+    $('#results').append(br, refreshBtn)
 }
 
 function timeUp() {

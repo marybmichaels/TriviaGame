@@ -28,3 +28,16 @@ body {
 .jumbotron {
     background: #343a40;
 }
+
+#result-cards {
+    justify-content: center;
+    text-align: -webkit-center;
+}
+
+#header-0, #header-1, #header-2 {
+    letter-spacing: .04em;
+}
+
+h2 {
+    font-size: 6em;
+}
