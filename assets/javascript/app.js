@@ -110,8 +110,15 @@ function makeQuiz() {
     }
 }
 
-function showAnswers() {
 
+var numCorrect = 0;
+var numIncorrect = 0;
+var numUnanswered = 0;
+
+function updateResults() {
+    $('#num-correct').text(numCorrect);
+    $('#num-incorrect').text(numIncorrect);
+    $('#num-unanswered').text(numUnanswered);
 }
 
 function showResults() {
@@ -120,9 +127,6 @@ function showResults() {
     $('#submit-place').hide();
     var refreshBtn = $('<button type="button" class="btn btn-primary btn-large" id="refresh">').text("Refresh Quiz");
 
-    var numCorrect = 0;
-    var numIncorrect = 0;
-    var numUnanswered = 0;
     $('<div>').attr({
         class: "card-group",
         id: "result-cards"
@@ -151,13 +155,55 @@ function showResults() {
     $('#header-1').text("INCORRECT");
     $('#header-2').text("UNANSWERED");
     
-    $('<h2>').text(numCorrect).appendTo('#body-0');
-    $('<h2>').text(numIncorrect).appendTo('#body-1');
-    $('<h2>').text(numUnanswered).appendTo('#body-2');
+    $('<h2>').text(numCorrect).attr('id', 'num-correct').appendTo('#body-0');
+    $('<h2>').text(numIncorrect).attr('id', 'num-incorrect').appendTo('#body-1');
+    $('<h2>').text(numUnanswered).attr('id', 'num-unanswered').appendTo('#body-2');
 
     
     // calculate which questions were answered correctly
+    if ($("input:radio[name='1']").is(":checked")) {
+        var q1val = $("input[name='1']:checked").val();
+        if (q1val === quizQues[0].correct) {
+            numCorrect++;
+            updateResults();
+        } else {
+            numIncorrect++;
+            updateResults();
+        }
+    } else {
+        numUnanswered++;
+        updateResults();
+    }
+    if ($("input:radio[name='3']").is(":checked")) {
+        var q2val = $("input[name='2']:checked").val();
+        if (q2val === quizQues[1].correct) {
+            numCorrect++;
+            updateResults();
+        } else {
+            numIncorrect++;
+            updateResults();
+        }
+    } else {
+        numUnanswered++;
+        updateResults();
+    }
+    if ($("input:radio[name='3']").is(":checked")) {
+        var q3val = $("input[name='3']:checked").val();
+        if (q3val === quizQues[1].correct) {
+            numCorrect++;
+            updateResults();
+        } else {
+            numIncorrect++;
+            updateResults();
+        }
+    } else {
+        numUnanswered++;
+        updateResults();
+    }
 
+    // if (q1val === )
+
+    console.log(q1val);
     // calculate which questions were unanswered
 
     clearInterval(quizInterval);
