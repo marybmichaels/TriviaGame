@@ -75,7 +75,7 @@ function makeQuiz() {
         $('<div>').attr({
             id: i,
             class: "card mb-3",
-            style: "width: 80%;"
+            style: "width: 70%;"
         }).appendTo('#quiz')
 
         var questionDiv = $('<div>').text(quesNum + ".  " + quizQues[i].question).addClass('question card-header');
