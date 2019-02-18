@@ -16,6 +16,7 @@ body {
 
 .card {
     margin: auto;
+    max-width: 1120px;
 }
 
 #submit, #start-btn, #refresh {
